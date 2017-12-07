@@ -22,7 +22,6 @@ object TestUserClientToServer extends App
   implicit lazy val executionContext: ExecutionContextExecutor = actorSystem.dispatcher
   implicit lazy val materializer: ActorMaterializer = ActorMaterializer()
 
-
   val handling = Flow[ByteString]
     .via(
       Framing.delimiter(ByteString("\n"), maximumFrameLength = 1024, allowTruncation = true)

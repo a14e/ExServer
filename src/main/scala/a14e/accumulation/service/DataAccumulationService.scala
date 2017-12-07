@@ -22,7 +22,6 @@ trait DataAccumulationService {
 
   def generateDataAccumulationFlow(): Flow[DataMessage, AccumulatedCandles, NotUsed]
 
-
 }
 
 
@@ -32,8 +31,6 @@ class DataAccumulationServiceImpl(configs: DataAccumulationConfig,
                                   context: ExecutionContext,
                                   actorSystem: ActorSystem,
                                   materializer: Materializer) extends DataAccumulationService with LazyLogging {
-
-
 
 
   def generateDataAccumulationFlow(): Flow[DataMessage, AccumulatedCandles, NotUsed] = {
