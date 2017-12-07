@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.{AtomicBoolean, AtomicReference}
 import java.util.function.UnaryOperator
 
 import a14e.accumulation.configuration.DataAccumulationConfig
-import a14e.accumulation.model.{AccumulatingCandles, JapanCandle}
+import a14e.accumulation.model.{AccumulatedCandles, JapanCandle}
 import a14e.client.protocol.DataMessage
 import a14e.client.service.DataClient
 import akka.NotUsed
@@ -20,7 +20,7 @@ import scala.util.Try
 
 trait DataAccumulationService {
 
-  def generateDataAccumulationFlow(): Flow[DataMessage, AccumulatingCandles, NotUsed]
+  def generateDataAccumulationFlow(): Flow[DataMessage, AccumulatedCandles, NotUsed]
 
 
 }
@@ -36,7 +36,7 @@ class DataAccumulationServiceImpl(configs: DataAccumulationConfig,
 
 
 
-  def generateDataAccumulationFlow(): Flow[DataMessage, AccumulatingCandles, NotUsed] = {
+  def generateDataAccumulationFlow(): Flow[DataMessage, AccumulatedCandles, NotUsed] = {
     Flow[DataMessage]
       .groupedWithin(configs.bufferSize, configs.candleTimeout)
       .map(JapanCandleHelpers.convertDataToCandles)
@@ -44,7 +44,7 @@ class DataAccumulationServiceImpl(configs: DataAccumulationConfig,
         logger.info(s"accumulated candles $candles")
         candles
       }
-      .scan(AccumulatingCandles.empty)(JapanCandleHelpers.addCandleToAccumulation(_, _, configs.historySize))
+      .scan(AccumulatedCandles.empty)(JapanCandleHelpers.addCandleToAccumulation(_, _, configs.historySize))
   }
 
 }

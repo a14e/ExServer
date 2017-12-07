@@ -2,7 +2,7 @@ package a14e.server
 
 import java.util.concurrent.atomic.{AtomicBoolean, AtomicReference}
 
-import a14e.accumulation.model.{AccumulatingCandles, JapanCandle, SingleIntervalCandles}
+import a14e.accumulation.model.{AccumulatedCandles, JapanCandle, SingleIntervalCandles}
 import a14e.accumulation.service.DataAccumulationService
 import a14e.client.service.DataClient
 import a14e.server.configuration.ServerConfigs
@@ -42,7 +42,7 @@ class ServerImpl(configs: ServerConfigs,
 
     val incomingConnections: Source[IncomingConnection, Future[ServerBinding]] = Tcp().bind("127.0.0.1", configs.port)
 
-    val lastPublishData = new AtomicReference[Option[AccumulatingCandles]](None)
+    val lastPublishData = new AtomicReference[Option[AccumulatedCandles]](None)
 
     val publisher: Publisher[SingleIntervalCandles] =
       client.bindAndGetSource()
@@ -60,7 +60,7 @@ class ServerImpl(configs: ServerConfigs,
 
   private def handleConnections(incomingConnections: Source[IncomingConnection, Future[ServerBinding]],
                                 publisher: Publisher[SingleIntervalCandles],
-                                lastPublishData: AtomicReference[Option[AccumulatingCandles]]): Unit = {
+                                lastPublishData: AtomicReference[Option[AccumulatedCandles]]): Unit = {
     incomingConnections
       .runForeach { connection =>
 

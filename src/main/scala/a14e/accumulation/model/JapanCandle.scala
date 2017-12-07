@@ -14,10 +14,10 @@ case class JapanCandle(ticket: String,
                        volume: Double)
 
 
-case class AccumulatingCandles(lastMessage: Option[SingleIntervalCandles],
-                               oldCandles: Vector[SingleIntervalCandles])
-object AccumulatingCandles {
-  def empty = AccumulatingCandles(None, Vector.empty)
+case class AccumulatedCandles(lastMessage: Option[SingleIntervalCandles],
+                              oldCandles: Vector[SingleIntervalCandles])
+object AccumulatedCandles {
+  def empty = AccumulatedCandles(None, Vector.empty)
 }
 
 case class SingleIntervalCandles(data: immutable.Seq[JapanCandle])

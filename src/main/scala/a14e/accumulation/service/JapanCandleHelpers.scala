@@ -1,6 +1,6 @@
 package a14e.accumulation.service
 
-import a14e.accumulation.model.{AccumulatingCandles, JapanCandle, SingleIntervalCandles}
+import a14e.accumulation.model.{AccumulatedCandles, JapanCandle, SingleIntervalCandles}
 import a14e.client.protocol.DataMessage
 
 import scala.collection.immutable
@@ -31,9 +31,9 @@ object JapanCandleHelpers {
       }.to[immutable.Seq]
   }
 
-  def addCandleToAccumulation(accumulated: AccumulatingCandles,
+  def addCandleToAccumulation(accumulated: AccumulatedCandles,
                               newCandles: immutable.Seq[JapanCandle],
-                              historySize: Int): AccumulatingCandles = {
+                              historySize: Int): AccumulatedCandles = {
 
     val last = Some(SingleIntervalCandles(newCandles))
     val oldCandles = {
@@ -43,7 +43,7 @@ object JapanCandleHelpers {
       else resultData
     }
 
-    AccumulatingCandles(last, oldCandles)
+    AccumulatedCandles(last, oldCandles)
 
   }
 
