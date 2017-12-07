@@ -15,7 +15,7 @@ import com.typesafe.scalalogging.LazyLogging
 import scala.concurrent.ExecutionContextExecutor
 import scala.util.Failure
 
-object TestUserClient extends App
+object TestUserClientToServer extends App
   with LazyLogging {
 
   implicit lazy val actorSystem: ActorSystem = ActorSystem()
