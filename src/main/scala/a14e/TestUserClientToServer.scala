@@ -33,7 +33,6 @@ object TestUserClientToServer extends App
       data
     }
     .map(_ => ByteString.empty)
-    .prepend(Source.single(ByteString.empty)) // Handshake
 
 
   Tcp().outgoingConnection("127.0.0.1", 9000)
