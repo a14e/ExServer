@@ -31,9 +31,9 @@ object JapanCandleHelpers {
       }.to[immutable.Seq]
   }
 
-  def addCandleToAccumulation(accumulated: AccumulatedCandles,
-                              newCandles: immutable.Seq[JapanCandle],
-                              historySize: Int): AccumulatedCandles = {
+  def addCandlesToAccumulation(accumulated: AccumulatedCandles,
+                               newCandles: immutable.Seq[JapanCandle],
+                               historySize: Int): AccumulatedCandles = {
 
     val last = Some(SingleIntervalCandles(newCandles))
     val oldCandles = {

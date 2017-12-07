@@ -44,7 +44,7 @@ class DataAccumulationServiceImpl(configs: DataAccumulationConfig,
         logger.info(s"accumulated candles $candles")
         candles
       }
-      .scan(AccumulatedCandles.empty)(JapanCandleHelpers.addCandleToAccumulation(_, _, configs.historySize))
+      .scan(AccumulatedCandles.empty)(JapanCandleHelpers.addCandlesToAccumulation(_, _, configs.historySize))
   }
 
 }
